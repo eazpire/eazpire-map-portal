@@ -1,9 +1,11 @@
-# eazpire-map-portal — Ecosystem architecture map (separate Worker)
+# eazpire-map-portal — Ecosystem architecture map (Admin-only)
 #
 # Deploy: npm run deploy:map
 # Dev:    npm run dev:map
 #
-# No D1/secrets required for v1 (static SPA). Auth/CF Access is a follow-up.
+# Secrets (wrangler secret put -c wrangler-map.toml):
+#   RESEND_API_KEY, PARTNER_JWT_SECRET (or JWT_APP_SECRET)
+# Sync from partner worker: npm run map:secrets
 
 name = "eazpire-map-portal"
 main = "src/map-worker.js"
@@ -18,6 +20,14 @@ zone_name = "eazpire.com"
 
 [vars]
 MAP_PORTAL_URL = "https://map.eazpire.com"
+# Same allowlist as admin.eazpire.com / partner worker
+ADMIN_OWNER_IDS = "9415375946010"
+ADMIN_OWNER_EMAILS = "tobi.muss@hotmail.com"
+ACCOUNT_DELETION_FROM_EMAIL = "Eazpire <noreply@eazpire.com>"
+
+[[kv_namespaces]]
+binding = "JOBS"
+id = "46fe4f02bc6544c286ea28ac0b4d9e22"
 
 [assets]
 binding = "MAP_ASSETS"

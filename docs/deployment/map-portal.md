@@ -34,7 +34,18 @@ npm run map:sync
 
 ## Auth
 
-v1 is publicly readable (static map). Admin-only gate / Cloudflare Access is a follow-up (see IDEA-032).
+**Admin-only** — same allowlist as `admin.eazpire.com`:
+
+- `ADMIN_OWNER_EMAILS` / `ADMIN_OWNER_IDS` in `wrangler-map.toml`
+- Magic link via Resend → `/auth/verify` → cookie `admin_partner_session`
+- Server gates SPA assets (no session → login page only)
+
+```bash
+npm run map:secrets   # RESEND_API_KEY + PARTNER_JWT_SECRET
+npm run deploy:map
+```
+
+Ops: `map-auth-request` / `map-auth-me` / `/auth/logout`
 
 ## CI
 

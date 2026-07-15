@@ -1,6 +1,13 @@
 /**
- * Serve map.eazpire.com SPA (ecosystem architecture map)
+ * Serve map.eazpire.com SPA — admin-session gated
  */
+
+import { requireAdminPartnerSession } from "../manufacturers/rbac.js";
+import {
+  handleMapAuthVerify,
+  handleMapAuthLogout,
+  renderMapLoginPage,
+} from "./mapAuth.js";
 
 let MAP_STATIC_BUNDLE = null;
 async function loadBundle() {
@@ -50,9 +57,34 @@ async function serveAsset(env, key) {
   return null;
 }
 
+function loginResponse(url) {
+  const html = renderMapLoginPage({
+    authError: url.searchParams.get("auth_error") || "",
+  });
+  return new Response(html, {
+    status: 200,
+    headers: {
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "no-store",
+    },
+  });
+}
+
 export async function handleMapPortalRequest(request, env) {
   const url = new URL(request.url);
   if (url.searchParams.get("op")) return null;
+
+  if (url.pathname === "/auth/verify") {
+    return handleMapAuthVerify(request, env);
+  }
+  if (url.pathname === "/auth/logout") {
+    return handleMapAuthLogout(request, env);
+  }
+
+  const auth = await requireAdminPartnerSession(request, env);
+  if (!auth.ok) {
+    return loginResponse(url);
+  }
 
   const key = assetKeyForPath(url.pathname);
   const asset = await serveAsset(env, key);

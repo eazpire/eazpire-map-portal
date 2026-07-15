@@ -63,6 +63,13 @@ export default function App() {
           onToggleType={onToggleType}
           onSelectAllTypes={onSelectAllTypes}
         />
+
+        <a
+          href="/auth/logout"
+          className="shrink-0 rounded-md border border-[var(--eaz-border)] px-2.5 py-1 text-[10px] tracking-wider uppercase text-[var(--eaz-text-dim)] transition hover:border-[var(--eaz-border-strong)] hover:text-[var(--eaz-text-muted)]"
+        >
+          Sign out
+        </a>
       </header>
 
       <main className="relative min-h-0 flex-1">
