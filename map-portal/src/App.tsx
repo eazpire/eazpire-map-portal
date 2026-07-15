@@ -4,7 +4,17 @@ import { EcosystemMap } from './components/EcosystemMap';
 import { InfoModal } from './components/InfoModal';
 import { LegendFilter } from './components/LegendFilter';
 
-const ALL_TYPES: NodeType[] = ['portal', 'worker', 'app', 'infra', 'external'];
+const ALL_TYPES: NodeType[] = [
+  'portal',
+  'worker',
+  'app',
+  'api',
+  'db',
+  'queue',
+  'github',
+  'infra',
+  'external',
+];
 
 export default function App() {
   const [selectedId, setSelectedId] = useState<string | null>(null);

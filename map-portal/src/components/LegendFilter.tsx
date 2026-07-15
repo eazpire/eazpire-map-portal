@@ -3,7 +3,17 @@ import {
   type NodeType,
 } from '../data/ecosystem';
 
-const TYPES: NodeType[] = ['portal', 'worker', 'app', 'infra', 'external'];
+const TYPES: NodeType[] = [
+  'portal',
+  'worker',
+  'app',
+  'api',
+  'db',
+  'queue',
+  'github',
+  'infra',
+  'external',
+];
 
 interface LegendFilterProps {
   activeTypes: Set<NodeType>;
@@ -17,7 +27,7 @@ export function LegendFilter({
   onSelectAllTypes,
 }: LegendFilterProps) {
   return (
-    <div className="flex shrink-0 flex-nowrap items-center gap-1">
+    <div className="flex max-w-[min(100%,720px)] shrink-0 flex-nowrap items-center gap-1 overflow-x-auto">
       <button
         type="button"
         onClick={onSelectAllTypes}
