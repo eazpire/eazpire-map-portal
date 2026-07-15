@@ -1200,3 +1200,13 @@ export function getConnections(nodeId: string): {
     inbound: ECOSYSTEM_EDGES.filter((e) => e.to === nodeId),
   };
 }
+
+/** Focus node + every node linked by an inbound or outbound edge. */
+export function getConnectedNodeIds(nodeId: string): Set<string> {
+  const ids = new Set<string>([nodeId]);
+  for (const e of ECOSYSTEM_EDGES) {
+    if (e.from === nodeId) ids.add(e.to);
+    if (e.to === nodeId) ids.add(e.from);
+  }
+  return ids;
+}

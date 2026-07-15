@@ -17,13 +17,14 @@ const ALL_TYPES: NodeType[] = [
 ];
 
 export default function App() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [focusNodeId, setFocusNodeId] = useState<string | null>(null);
+  const [detailNodeId, setDetailNodeId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [activeTypes, setActiveTypes] = useState<Set<NodeType>>(
     () => new Set(ALL_TYPES),
   );
 
-  const selected = selectedId ? getNodeById(selectedId) ?? null : null;
+  const detailNode = detailNodeId ? getNodeById(detailNodeId) ?? null : null;
 
   const onToggleType = useCallback((t: NodeType) => {
     setActiveTypes((prev) => {
@@ -42,8 +43,32 @@ export default function App() {
     setActiveTypes(new Set(ALL_TYPES));
   }, []);
 
-  const onSelect = useCallback((id: string | null) => {
-    setSelectedId(id);
+  /** Left-click on map: first click → Only Connections; second click same hub → InfoModal. */
+  const onNodeActivate = useCallback(
+    (id: string) => {
+      if (focusNodeId === id) {
+        setDetailNodeId(id);
+        return;
+      }
+      setFocusNodeId(id);
+      setDetailNodeId(null);
+    },
+    [focusNodeId],
+  );
+
+  const clearFocus = useCallback(() => {
+    setFocusNodeId(null);
+    setDetailNodeId(null);
+  }, []);
+
+  const closeDetail = useCallback(() => {
+    setDetailNodeId(null);
+  }, []);
+
+  /** In-modal related navigation: switch focus + keep modal open on the new node. */
+  const onSelectRelated = useCallback((id: string) => {
+    setFocusNodeId(id);
+    setDetailNodeId(id);
   }, []);
 
   return (
@@ -84,18 +109,20 @@ export default function App() {
 
       <main className="relative min-h-0 flex-1">
         <EcosystemMap
-          selectedId={selectedId}
-          onSelect={onSelect}
+          focusNodeId={focusNodeId}
+          detailNodeId={detailNodeId}
+          onNodeActivate={onNodeActivate}
+          onClearFocus={clearFocus}
           activeTypes={activeTypes}
           search={search}
         />
       </main>
 
-      {selected && (
+      {detailNode && (
         <InfoModal
-          node={selected}
-          onClose={() => setSelectedId(null)}
-          onSelectRelated={setSelectedId}
+          node={detailNode}
+          onClose={closeDetail}
+          onSelectRelated={onSelectRelated}
         />
       )}
     </div>
