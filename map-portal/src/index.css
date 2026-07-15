@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+@import '@xyflow/react/dist/style.css';
+
+:root {
+  --eaz-bg: #0d0f12;
+  --eaz-bg-elevated: #14171c;
+  --eaz-bg-panel: #171a20;
+  --eaz-border: rgba(255, 255, 255, 0.07);
+  --eaz-border-strong: rgba(255, 255, 255, 0.12);
+  --eaz-text: #e8e6e3;
+  --eaz-text-muted: #9a968f;
+  --eaz-text-dim: #6b6760;
+  --eaz-ember: #c4845a;
+  --eaz-teal: #5a9e9a;
+  --eaz-gold: #b89a5e;
+  --eaz-stone: #8a919c;
+  --eaz-violet: #8b7a9e;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--eaz-bg);
+  color: var(--eaz-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mysterious ambient backdrop */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(139, 122, 158, 0.12), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(196, 132, 90, 0.08), transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 110%, rgba(90, 158, 154, 0.07), transparent 55%),
+    linear-gradient(180deg, #0d0f12 0%, #0a0c0f 100%);
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* React Flow anthracite overrides */
+.react-flow {
+  background: transparent !important;
+}
+
+.react-flow__background pattern {
+  opacity: 0.35;
+}
+
+.react-flow__minimap {
+  background: #12151a !important;
+  border: 1px solid var(--eaz-border) !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.react-flow__controls {
+  border: 1px solid var(--eaz-border) !important;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+.react-flow__controls-button {
+  background: #171a20 !important;
+  border-bottom: 1px solid var(--eaz-border) !important;
+  fill: #c4bfb6 !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #1e232b !important;
+}
+
+.react-flow__edge-textbg {
+  fill: #14171c;
+}
+
+.react-flow__edge-text {
+  fill: #9a968f;
+  font-size: 10px;
+  font-family: var(--font-body);
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+/* Soft scrollbar */
+.eaz-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.eaz-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.eaz-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}

@@ -1,0 +1,25 @@
+# eazpire-map-portal — Ecosystem architecture map (separate Worker)
+#
+# Deploy: npm run deploy:map
+# Dev:    npm run dev:map
+#
+# No D1/secrets required for v1 (static SPA). Auth/CF Access is a follow-up.
+
+name = "eazpire-map-portal"
+main = "src/map-worker.js"
+compatibility_date = "2025-01-15"
+compatibility_flags = [ "nodejs_compat" ]
+
+workers_dev = true
+
+[[routes]]
+pattern = "map.eazpire.com/*"
+zone_name = "eazpire.com"
+
+[vars]
+MAP_PORTAL_URL = "https://map.eazpire.com"
+
+[assets]
+binding = "MAP_ASSETS"
+directory = "map-static"
+run_worker_first = true
