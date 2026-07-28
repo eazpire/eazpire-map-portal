@@ -862,6 +862,20 @@ export const ECOSYSTEM_NODES: EcosystemNode[] = [
     relatedIdeaIds: ['IDEA-032'],
     position: { x: 1180, y: 1400 },
   },
+  {
+    id: 'worker-matrix',
+    type: 'worker',
+    label: 'matrix-worker',
+    host: 'matrix.eazpire.com',
+    url: 'https://matrix.eazpire.com',
+    repoPath: 'src/matrix-worker.js, matrix-portal/',
+    summary: 'Make-style scenario ops SPA + admin magic-link gate.',
+    functions: ['Serve matrix-static', 'matrix-auth-*', 'Scenario catalog UI'],
+    status: 'beta',
+    features: ['IDEA-056'],
+    relatedIdeaIds: ['IDEA-056'],
+    position: { x: 1180, y: 1540 },
+  },
 
   // ── Portals ───────────────────────────────────────────────
   {
@@ -988,6 +1002,20 @@ export const ECOSYSTEM_NODES: EcosystemNode[] = [
     features: ['IDEA-032'],
     relatedIdeaIds: ['IDEA-032'],
     position: { x: 1500, y: 1400 },
+  },
+  {
+    id: 'portal-matrix',
+    type: 'portal',
+    label: 'Matrix',
+    host: 'matrix.eazpire.com',
+    url: 'https://matrix.eazpire.com',
+    repoPath: 'matrix-portal/',
+    summary: 'Make-style scenario overview + module canvas (admin-gated).',
+    functions: ['Scenario library', 'Module graph', 'Inspector'],
+    status: 'beta',
+    features: ['IDEA-056'],
+    relatedIdeaIds: ['IDEA-056'],
+    position: { x: 1500, y: 1540 },
   },
 
   // ── Apps ──────────────────────────────────────────────────
@@ -1152,6 +1180,7 @@ export const ECOSYSTEM_EDGES: EcosystemEdge[] = [
   { id: 'q7', from: 'worker-engine', to: 'infra-kv', label: 'job state' },
   { id: 'q8', from: 'worker-proxy', to: 'infra-kv', label: 'cache' },
   { id: 'q9', from: 'worker-map', to: 'infra-kv', label: 'magic tokens' },
+  { id: 'q9b', from: 'worker-matrix', to: 'infra-kv', label: 'magic tokens' },
   { id: 'q10', from: 'worker-brand', to: 'infra-kv', label: 'magic tokens' },
   { id: 'q11', from: 'worker-partner', to: 'infra-kv', label: 'sessions / tokens' },
 
@@ -1168,6 +1197,7 @@ export const ECOSYSTEM_EDGES: EcosystemEdge[] = [
   { id: 'h6', from: 'worker-play', to: 'portal-play', label: 'Serves' },
   { id: 'h7', from: 'worker-ads', to: 'portal-ads', label: 'Serves' },
   { id: 'h8', from: 'worker-map', to: 'portal-map', label: 'Serves' },
+  { id: 'h9', from: 'worker-matrix', to: 'portal-matrix', label: 'Serves' },
 
   // Hub workers ↔ engine
   { id: 'c1', from: 'worker-creator', to: 'worker-engine', label: 'CREATOR_ENGINE' },
