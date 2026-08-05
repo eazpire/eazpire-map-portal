@@ -8,6 +8,7 @@ import {
   handleMapAuthLogout,
   renderMapLoginPage,
 } from "./mapAuth.js";
+import { withAdminCursorAgentInjection } from "../../utils/adminCursorAgentInject.js";
 
 let MAP_STATIC_BUNDLE = null;
 async function loadBundle() {
@@ -88,11 +89,21 @@ export async function handleMapPortalRequest(request, env) {
 
   const key = assetKeyForPath(url.pathname);
   const asset = await serveAsset(env, key);
-  if (asset) return asset;
+  if (asset) {
+    return withAdminCursorAgentInjection(asset, {
+      portal: "map",
+      partnerAuthBase: "https://map.eazpire.com",
+    });
+  }
 
   if (!url.pathname.includes(".")) {
     const index = await serveAsset(env, "index.html");
-    if (index) return index;
+    if (index) {
+      return withAdminCursorAgentInjection(index, {
+        portal: "map",
+        partnerAuthBase: "https://map.eazpire.com",
+      });
+    }
   }
 
   return new Response("Not found", { status: 404 });
